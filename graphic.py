@@ -10,6 +10,9 @@ class Window:
         #We call the protocol method on the root widget so as to connect the close method we created to the "delete window action so that the program stops when we close the graphical window"
         self.__root.protocol("WM_DELETE_WINDOW", self.close)
 
+    def draw_line(self, line, fill_color="black"):
+         line.draw(self.__canvas, fill_color)
+
     # This method when called draws all the graphics in the window. Each time this is called the window redraws itself    
     def redraw(self):
         self.__root.update_idletasks()
@@ -25,3 +28,20 @@ class Window:
     #This sets the running state to False
     def close(self):
         self.__running = False
+
+class Point:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+    
+
+class Line:
+    def __init__(self, p1, p2):
+        self.p1 = p1
+        self.p2 = p2
+
+    def draw(self, canvas, fill_color="black"):
+        canvas.create_line(
+            self.p1.x, self.p1.y, self.p2.x, self.p2.y, fill=fill_color, width=2
+        )
+        canvas.pack(fill=BOTH, expand = 1)
